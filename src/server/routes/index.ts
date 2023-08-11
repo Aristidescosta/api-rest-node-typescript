@@ -1,4 +1,6 @@
 import { Router } from "express";
+
+
 import { CidadeController } from "../controllers/index";
 
 const router = Router();
