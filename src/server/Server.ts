@@ -7,6 +7,6 @@ import { router } from "./routes";
 const server = express();
 
 server.use(express.json());
-server.use(router);
+server.use("/v1", router);
 
 export { server };

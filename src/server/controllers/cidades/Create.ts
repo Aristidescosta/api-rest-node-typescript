@@ -1,7 +1,8 @@
+import { StatusCodes } from "http-status-codes";
 import { Request, Response } from "express";
 import * as yup from "yup";
+
 import { validation } from "../../shared/middleware";
-import { StatusCodes } from "http-status-codes";
 
 interface ICidade {
   nome: string;
