@@ -1,0 +1,59 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API para manipulação de cidades de Angola",
+    "description": "Esta api tem como objectivo a manipulação de cidades de Angola",
+    "contact": {
+      "email": "aristidescosta330@gmail.com"
+    },
+    "version": "1.0.0",
+    "servers": {
+      "url": "http://localhost:3333/v1",
+      "description": "API de test"
+    }
+  },
+  "paths": {
+    "/cidades": {
+      "post": {
+        "summary": "Cadastro de cidade",
+        "description": "Essa rota será responsável por cadastrar uma nova cidade",
+        "tags": ["Cidades"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Cidade"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cidades/getById": {
+      "get":{
+        "description": "Busca de uma cidade pelo nome",
+        "summary": "Busca de uma cidade pelo nome",
+        "tags": ["Cidades"],
+        "parameters": [{
+          "name": "id",
+          "in": "params",
+          "description": "Id da cidade para busca",
+          "required": true
+        }]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Cidade": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

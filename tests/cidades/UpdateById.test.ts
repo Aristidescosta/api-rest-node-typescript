@@ -2,7 +2,7 @@ import { StatusCodes } from "http-status-codes";
 import { testServer } from "../jest.setup";
 
 describe("Cidades - UpdateById", ()=>{
-  it("Busca registo por id", async()=>{
+  it("Atualiza registo por id", async()=>{
     const response = await testServer
       .post("/v1/cidades")
       .send({ nome: "Luanda" });
@@ -16,7 +16,7 @@ describe("Cidades - UpdateById", ()=>{
     expect(responseFound.body).toHaveProperty("nome");
   });
 
-  it("Tenta buscar registo que não existe", async()=>{
+  it("Tenta atualizar registo que não existe", async()=>{
     const response = await testServer
       .delete("/v1/cidades/99999")
       .send();
