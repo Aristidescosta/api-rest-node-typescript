@@ -29,7 +29,7 @@ Você vai precisar do nodens instalado no seu computador para rodar o projeto.
 
 Clone o repositório:
 ```
-$ git clone [https://github.com/lvsouza/youtube-curso-react-materialui-typescript.git](https://github.com/Aristidescosta/api-rest-node-typescript.git)
+$ git clone https://github.com/Aristidescosta/api-rest-node-typescript.git
 ```
 
 Entre na pasta
