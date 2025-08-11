@@ -1,18 +1,25 @@
 import { Router } from "express";
 
-
-import { CidadeController } from "../controllers/index";
+import { ItemController } from "../controllers/items";
+import { OrderController } from "../controllers/orders";
 
 const router = Router();
 
 
-router.get("/", (_, res) =>{
+router.get("/", (_, res) => {
   res.send("Olá mundo");
 });
 
-router.delete("/cidades/:id", CidadeController.deleteByIdValidation, CidadeController.deleteById);
-router.put("/cidades/:id", CidadeController.updateByIdValidation, CidadeController.updateById);
-router.get("/cidades/:id", CidadeController.getBuyIdValidation, CidadeController.getBuyId);
-router.get("/cidades", CidadeController.getAllValidation, CidadeController.getAll);
-router.post("/cidades", CidadeController.createValidation, CidadeController.create);
+/* ITEM */
+router.post("/item", ItemController.createValidation, ItemController.create);
+router.get("/items", ItemController.getAllValidation, ItemController.getAll);
+router.get("/items/:id", ItemController.getByIdValidation, ItemController.getById);
+router.put("/items/:id", ItemController.updateByIdValidation, ItemController.updateById);
+router.delete("/items/:id", ItemController.deleteByIdValidation, ItemController.deleteById);
+
+/* ORDERS */
+router.post("/order", OrderController.createValidation, OrderController.create);
+router.get("/orders", OrderController.getAllValidation, OrderController.getAll);
+router.put("/orders/:id", OrderController.updateByIdValidation, OrderController.updateById);
+router.delete("/orders/:id", OrderController.deleteByIdValidation, OrderController.deleteById);
 export { router };
