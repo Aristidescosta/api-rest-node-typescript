@@ -23,7 +23,6 @@ export const getAll = async (
       .limit(limit);
 
 
-    // Garante que o pedido específico apareça, mesmo fora da página
     if (id > 0 && result.every((order: IOrder) => Number(order.id) !== id)) {
       const orderById = await Knex(ETableNames.orders)
         .select("*")

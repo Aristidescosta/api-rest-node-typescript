@@ -12,22 +12,39 @@ export interface IPaginatedResult<T> {
   isLastPage: boolean;
 }
 
+export interface IOrderResult extends IOrder {
+  item_name: string
+}
+
 export const getAllPaginated = async (
   page: number,
   limit: number,
   filter: string,
   id = 0
-): Promise<IPaginatedResult<IOrder> | Error> => {
+): Promise<IPaginatedResult<IOrderResult> | Error> => {
   try {
     const [result, countResult] = await Promise.all([
-      Knex<IOrder>(ETableNames.orders)
-        .select("*")
+      Knex(ETableNames.orders)
+        .join(
+          ETableNames.item,
+          `${ETableNames.orders}.item_id`,
+          "=",
+          `${ETableNames.item}.id`
+        )
+        .select(
+          `${ETableNames.orders}.*`,
+          `${ETableNames.item}.name as item_name`,
+          `${ETableNames.item}.price as item_price`
+        )
         .modify((query) => {
           if (id > 0) {
-            query.where("id", id);
+            query.where(`${ETableNames.orders}.id`, id);
           }
           if (filter) {
-            query.orWhereRaw("LOWER(customer_name) LIKE ?", [`%${filter.toLowerCase()}%`]);
+            query.orWhereRaw(
+              "LOWER(customer_name) LIKE ?",
+              [`%${filter.toLowerCase()}%`]
+            );
           }
         })
         .offset((page - 1) * limit)
@@ -36,11 +53,15 @@ export const getAllPaginated = async (
       Knex(ETableNames.orders)
         .modify((query) => {
           if (filter) {
-            query.whereRaw("LOWER(customer_name) LIKE ?", [`%${filter.toLowerCase()}%`]);
+            query.whereRaw(
+              "LOWER(customer_name) LIKE ?",
+              [`%${filter.toLowerCase()}%`]
+            );
           }
         })
         .count<{ count: string }[]>("* as count")
     ]);
+
 
     const totalItems = Number(countResult[0]?.count || 0);
     const totalPages = Math.ceil(totalItems / limit);

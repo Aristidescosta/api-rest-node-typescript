@@ -19,14 +19,16 @@ export const createValidation = validation((getSchema) => ({
   }))
 }));
 
-export const create = async (req: Request<{}, {}, IOrder>, res: Response) => {
+export const create = async (req: Request<{}, {}, IBodyProps>, res: Response) => {
   const result = await OrderProvider.create(req.body);
 
-  if (result instanceof Error) return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-    errors: {
-      default: result.message
-    }
-  });
+  if (result instanceof Error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      errors: {
+        default: result.message
+      }
+    });
+  }
 
   return res.status(StatusCodes.CREATED).json(result);
 };
